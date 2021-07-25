@@ -1,20 +1,16 @@
 import { HomeRun } from "./HomeRun";
-import { GameState, createGameState } from "../state/createGame";
+import { createGameState } from "../state/createGame";
 
-const testCases: { testName: string; input: GameState; output: GameState }[] = [
+const testCases = [
     {
         testName: "Default Game State",
-        input: createGameState({}),
+        input: createGameState(),
         output: {
-            homeTeam: { name: "Home Team", type: "home", index: 1 },
-            awayTeam: { name: "Away Team", type: "away", index: 0 },
             score: [
                 [1, 0, 0, 0, 0, 0, 0, 0, 0],
                 [0, 0, 0, 0, 0, 0, 0, 0, 0],
             ],
             bases: [false, false, false],
-            activeTeam: 0,
-            currentInning: 0,
         },
     },
     {
@@ -25,15 +21,11 @@ const testCases: { testName: string; input: GameState; output: GameState }[] = [
             bases: [true, true, false],
         }),
         output: {
-            homeTeam: { name: "Home Team", type: "home", index: 1 },
-            awayTeam: { name: "Away Team", type: "away", index: 0 },
             score: [
                 [0, 0, 0, 0, 0, 0, 0, 0, 0],
                 [0, 0, 0, 0, 3, 0, 0, 0, 0],
             ],
             bases: [false, false, false],
-            activeTeam: 1,
-            currentInning: 4,
         },
     },
 ];

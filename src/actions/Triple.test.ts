@@ -1,23 +1,21 @@
-import { Double } from "./Double";
-import { GameState, createGameState } from "../state/createGame";
+import { Triple } from "./Triple";
+import { createGameState } from "../state/createGame";
 import { BatterActionConfig } from "./types";
 
 const testCases = [
     {
         testName: "Default Game State",
-        basesToAdvance: 2,
         input: createGameState(),
         output: {
             score: [
                 [0, 0, 0, 0, 0, 0, 0, 0, 0],
                 [0, 0, 0, 0, 0, 0, 0, 0, 0],
             ],
-            bases: [false, true, false],
+            bases: [false, false, true],
         },
     },
     {
         testName: "Custom Game State 2",
-        basesToAdvance: 3,
         input: createGameState({
             currentInning: 4,
             activeTeam: 1,
@@ -28,34 +26,31 @@ const testCases = [
                 [0, 0, 0, 0, 0, 0, 0, 0, 0],
                 [0, 0, 0, 0, 2, 0, 0, 0, 0],
             ],
-            bases: [false, true, false],
+            bases: [false, false, true],
         },
     },
     {
         testName: "Custom Game State 1",
-        basesToAdvance: 2,
         input: createGameState({
             currentInning: 4,
             activeTeam: 1,
-            bases: [true, true, false],
+            bases: [true, false, false],
         }),
         output: {
             score: [
                 [0, 0, 0, 0, 0, 0, 0, 0, 0],
                 [0, 0, 0, 0, 1, 0, 0, 0, 0],
             ],
-            bases: [false, true, true],
+            bases: [false, false, true],
         },
     },
 ];
 
-describe("Double Tests", () => {
-    testCases.forEach(({ testName, basesToAdvance, input, output }) => {
+describe("Triple Tests", () => {
+    testCases.forEach(({ testName, input, output }) => {
         test(`${testName}`, () => {
-            const dub = new Double();
-            const { score, bases } = dub.execute(input, {
-                basesToAdvance,
-            } as BatterActionConfig);
+            const triple = new Triple();
+            const { score, bases } = triple.execute(input);
             expect(score).toMatchObject(output.score);
             expect(bases).toMatchObject(output.bases);
         });

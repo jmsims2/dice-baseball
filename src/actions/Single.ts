@@ -1,10 +1,10 @@
 import { BatterActionConfig, HitArgs, HitResult } from "./types";
 import { Score, Bases } from "../state/createGame";
 
-export class Double {
+export class Single {
     execute = (
         state: HitArgs,
-        { basesToAdvance = 2 }: BatterActionConfig = {}
+        { basesToAdvance = 1 }: BatterActionConfig = {}
     ): HitResult => {
         const score = this.setScore(state, basesToAdvance);
         const bases: Bases = this.setBases(state, basesToAdvance);
@@ -18,7 +18,7 @@ export class Double {
             runs = state.bases[1] ? runs + 1 : runs;
             runs = state.bases[2] ? runs + 1 : runs;
         } else {
-            runs = state.bases.filter(Boolean).length;
+            runs = state.bases[2] ? runs + 1 : runs;
         }
         score[state.activeTeam][state.currentInning] += runs;
         return score;
@@ -27,9 +27,9 @@ export class Double {
     setBases = (state: HitArgs, basesToAdvance: number): Bases => {
         let bases = [...state.bases];
         if (basesToAdvance === 2) {
-            return bases[0] ? [false, true, true] : [false, true, false];
+            return bases[0] ? [true, false, true] : [true, false, false];
         } else {
-            return [false, true, false];
+            return [true, bases[0], bases[1]];
         }
     };
 }

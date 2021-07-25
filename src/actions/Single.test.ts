@@ -1,5 +1,5 @@
-import { Double } from "./Double";
-import { GameState, createGameState } from "../state/createGame";
+import { Single } from "./Single";
+import { createGameState } from "../state/createGame";
 import { BatterActionConfig } from "./types";
 
 const testCases = [
@@ -12,12 +12,12 @@ const testCases = [
                 [0, 0, 0, 0, 0, 0, 0, 0, 0],
                 [0, 0, 0, 0, 0, 0, 0, 0, 0],
             ],
-            bases: [false, true, false],
+            bases: [true, false, false],
         },
     },
     {
         testName: "Custom Game State 2",
-        basesToAdvance: 3,
+        basesToAdvance: 1,
         input: createGameState({
             currentInning: 4,
             activeTeam: 1,
@@ -26,9 +26,9 @@ const testCases = [
         output: {
             score: [
                 [0, 0, 0, 0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 2, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0, 0, 0],
             ],
-            bases: [false, true, false],
+            bases: [true, true, true],
         },
     },
     {
@@ -44,16 +44,16 @@ const testCases = [
                 [0, 0, 0, 0, 0, 0, 0, 0, 0],
                 [0, 0, 0, 0, 1, 0, 0, 0, 0],
             ],
-            bases: [false, true, true],
+            bases: [true, false, true],
         },
     },
 ];
 
-describe("Double Tests", () => {
+describe("Single Tests", () => {
     testCases.forEach(({ testName, basesToAdvance, input, output }) => {
         test(`${testName}`, () => {
-            const dub = new Double();
-            const { score, bases } = dub.execute(input, {
+            const single = new Single();
+            const { score, bases } = single.execute(input, {
                 basesToAdvance,
             } as BatterActionConfig);
             expect(score).toMatchObject(output.score);

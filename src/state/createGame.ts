@@ -10,6 +10,8 @@ export type Score = Array<number[]>;
 
 export type Bases = [boolean, boolean, boolean];
 
+export type Outs = 0 | 1 | 2;
+
 export interface GameState {
     homeTeam: Team;
     awayTeam: Team;
@@ -17,6 +19,7 @@ export interface GameState {
     bases: Bases;
     activeTeam: 0 | 1;
     currentInning: number;
+    outs: Outs;
 }
 
 export const createGameState = ({
@@ -29,7 +32,8 @@ export const createGameState = ({
     bases = [false, false, false],
     activeTeam = 0,
     currentInning = 0,
-}: Partial<GameState>): GameState => {
+    outs = 0,
+}: Partial<GameState> = {}): GameState => {
     return {
         homeTeam,
         awayTeam,
@@ -37,5 +41,6 @@ export const createGameState = ({
         bases,
         activeTeam,
         currentInning,
+        outs,
     };
 };

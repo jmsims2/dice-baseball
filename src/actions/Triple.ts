@@ -1,17 +1,21 @@
 import { HitArgs, HitResult } from "./types";
 import { Score, Bases } from "../state/createGame";
 
-export class HomeRun {
+export class Triple {
     execute = (state: HitArgs): HitResult => {
         const score = this.setScore(state);
-        const bases: Bases = [false, false, false];
-        return { score, bases };
+        const bases: Bases = this.setBases(state);
+        return { ...state, score, bases };
     };
 
     setScore = (state: HitArgs): Score => {
         let score = [...state.score];
-        const runs = state.bases.filter(Boolean).length + 1;
+        let runs = state.bases.filter(Boolean).length;
         score[state.activeTeam][state.currentInning] += runs;
         return score;
+    };
+
+    setBases = (state: HitArgs): Bases => {
+        return [false, false, true];
     };
 }

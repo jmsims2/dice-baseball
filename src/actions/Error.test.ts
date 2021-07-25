@@ -1,23 +1,20 @@
-import { Double } from "./Double";
-import { GameState, createGameState } from "../state/createGame";
-import { BatterActionConfig } from "./types";
+import { FieldingError } from "./Error";
+import { createGameState } from "../state/createGame";
 
 const testCases = [
     {
         testName: "Default Game State",
-        basesToAdvance: 2,
         input: createGameState(),
         output: {
             score: [
                 [0, 0, 0, 0, 0, 0, 0, 0, 0],
                 [0, 0, 0, 0, 0, 0, 0, 0, 0],
             ],
-            bases: [false, true, false],
+            bases: [false, false, false],
         },
     },
     {
         testName: "Custom Game State 2",
-        basesToAdvance: 3,
         input: createGameState({
             currentInning: 4,
             activeTeam: 1,
@@ -26,36 +23,33 @@ const testCases = [
         output: {
             score: [
                 [0, 0, 0, 0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 2, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0, 0, 0],
             ],
-            bases: [false, true, false],
+            bases: [false, true, true],
         },
     },
     {
         testName: "Custom Game State 1",
-        basesToAdvance: 2,
         input: createGameState({
             currentInning: 4,
             activeTeam: 1,
-            bases: [true, true, false],
+            bases: [true, false, true],
         }),
         output: {
             score: [
                 [0, 0, 0, 0, 0, 0, 0, 0, 0],
                 [0, 0, 0, 0, 1, 0, 0, 0, 0],
             ],
-            bases: [false, true, true],
+            bases: [false, true, false],
         },
     },
 ];
 
-describe("Double Tests", () => {
-    testCases.forEach(({ testName, basesToAdvance, input, output }) => {
+describe("Triple Tests", () => {
+    testCases.forEach(({ testName, input, output }) => {
         test(`${testName}`, () => {
-            const dub = new Double();
-            const { score, bases } = dub.execute(input, {
-                basesToAdvance,
-            } as BatterActionConfig);
+            const error = new FieldingError();
+            const { score, bases } = error.execute(input);
             expect(score).toMatchObject(output.score);
             expect(bases).toMatchObject(output.bases);
         });
