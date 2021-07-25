@@ -31,6 +31,9 @@ export class Out {
             activeTeam,
             currentInning,
             lastResult: outs === 2 ? this.DOUBLEPLAY : this.OUT,
+            strikes: 0,
+            balls: 0,
+            currentTurn: "pitcher",
         };
     };
 

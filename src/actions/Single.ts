@@ -9,7 +9,15 @@ export class Single {
     ): HitResult => {
         const score = this.setScore(state, basesToAdvance);
         const bases: Bases = this.setBases(state, basesToAdvance);
-        return { ...state, score, bases, lastResult: this.SINGLE };
+        return {
+            ...state,
+            score,
+            bases,
+            lastResult: this.SINGLE,
+            strikes: 0,
+            balls: 0,
+            currentTurn: "pitcher",
+        };
     };
 
     setScore = (state: HitArgs, basesToAdvance: number): Score => {

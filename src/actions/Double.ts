@@ -9,7 +9,15 @@ export class Double {
     ): HitResult => {
         const score = this.setScore(state, basesToAdvance);
         const bases: Bases = this.setBases(state, basesToAdvance);
-        return { ...state, score, bases, lastResult: this.DOUBLE };
+        return {
+            ...state,
+            score,
+            bases,
+            lastResult: this.DOUBLE,
+            strikes: 0,
+            balls: 0,
+            currentTurn: "pitcher",
+        };
     };
 
     setScore = (state: HitArgs, basesToAdvance: number): Score => {

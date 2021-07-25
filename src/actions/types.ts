@@ -8,17 +8,47 @@ export interface BatterActionConfig {
 
 export type HitArgs = Pick<
     GameState,
-    "score" | "bases" | "currentInning" | "activeTeam"
+    | "score"
+    | "bases"
+    | "currentInning"
+    | "activeTeam"
+    | "balls"
+    | "strikes"
+    | "currentTurn"
 >;
-export type HitResult = Pick<GameState, "score" | "bases" | "lastResult">;
+export type HitResult = Pick<
+    GameState,
+    | "score"
+    | "bases"
+    | "lastResult"
+    | "balls"
+    | "strikes"
+    | "currentInning"
+    | "currentTurn"
+>;
 
 export type OutArgs = Pick<
     GameState,
-    "score" | "bases" | "currentInning" | "activeTeam" | "outs"
+    | "score"
+    | "bases"
+    | "currentInning"
+    | "activeTeam"
+    | "outs"
+    | "balls"
+    | "strikes"
+    | "currentTurn"
 >;
 export type OutResult = Pick<
     GameState,
-    "score" | "bases" | "currentInning" | "activeTeam" | "outs" | "lastResult"
+    | "score"
+    | "bases"
+    | "currentInning"
+    | "activeTeam"
+    | "outs"
+    | "lastResult"
+    | "balls"
+    | "strikes"
+    | "currentTurn"
 >;
 
 export type PitchArgs = Pick<
@@ -31,6 +61,7 @@ export type PitchArgs = Pick<
     | "lastResult"
     | "strikes"
     | "balls"
+    | "currentTurn"
 >;
 export type PitchResult = Pick<
     GameState,
@@ -42,4 +73,5 @@ export type PitchResult = Pick<
     | "lastResult"
     | "strikes"
     | "balls"
+    | "currentTurn"
 >;

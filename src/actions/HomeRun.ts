@@ -6,7 +6,15 @@ export class HomeRun {
     execute = (state: HitArgs): HitResult => {
         const score = this.setScore(state);
         const bases: Bases = [false, false, false];
-        return { score, bases, lastResult: this.HOMERUN };
+        return {
+            ...state,
+            score,
+            bases,
+            lastResult: this.HOMERUN,
+            strikes: 0,
+            balls: 0,
+            currentTurn: "pitcher",
+        };
     };
 
     setScore = (state: HitArgs): Score => {

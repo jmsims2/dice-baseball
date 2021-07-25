@@ -6,7 +6,15 @@ export class FieldingError {
     execute = (state: HitArgs): HitResult => {
         const score = this.setScore(state);
         const bases: Bases = this.setBases(state);
-        return { ...state, score, bases, lastResult: this.ERROR };
+        return {
+            ...state,
+            score,
+            bases,
+            lastResult: this.ERROR,
+            strikes: 0,
+            balls: 0,
+            currentTurn: "pitcher",
+        };
     };
 
     setScore = (state: HitArgs): Score => {

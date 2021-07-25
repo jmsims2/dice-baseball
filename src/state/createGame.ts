@@ -23,9 +23,10 @@ export interface GameState {
     activeTeam: 0 | 1;
     currentInning: number;
     outs: Outs;
-    balls: Balls,
+    balls: Balls;
     strikes: Strikes;
     lastResult: string | null;
+    currentTurn: "pitcher" | "batter";
 }
 
 export const createGameState = ({
@@ -42,6 +43,7 @@ export const createGameState = ({
     balls = 0,
     strikes = 0,
     lastResult = null,
+    currentTurn = "batter",
 }: Partial<GameState> = {}): GameState => {
     return {
         homeTeam,
@@ -52,7 +54,8 @@ export const createGameState = ({
         currentInning,
         outs,
         balls,
-        strikes
+        strikes,
         lastResult,
+        currentTurn,
     };
 };
