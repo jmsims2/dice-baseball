@@ -2,10 +2,11 @@ import { HitArgs, HitResult } from "./types";
 import { Score, Bases } from "../state/createGame";
 
 export class Triple {
+    TRIPLE = "TRIPLE";
     execute = (state: HitArgs): HitResult => {
         const score = this.setScore(state);
         const bases: Bases = this.setBases(state);
-        return { ...state, score, bases };
+        return { ...state, score, bases, lastResult: this.TRIPLE };
     };
 
     setScore = (state: HitArgs): Score => {

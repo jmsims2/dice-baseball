@@ -2,13 +2,14 @@ import { BatterActionConfig, HitArgs, HitResult } from "./types";
 import { Score, Bases } from "../state/createGame";
 
 export class Single {
+    SINGLE = "SINGLE";
     execute = (
         state: HitArgs,
         { basesToAdvance = 1 }: BatterActionConfig = {}
     ): HitResult => {
         const score = this.setScore(state, basesToAdvance);
         const bases: Bases = this.setBases(state, basesToAdvance);
-        return { ...state, score, bases };
+        return { ...state, score, bases, lastResult: this.SINGLE };
     };
 
     setScore = (state: HitArgs, basesToAdvance: number): Score => {

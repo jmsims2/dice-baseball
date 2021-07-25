@@ -3,6 +3,8 @@ import { Score, Bases, Outs } from "../state/createGame";
 import { createSecureContext } from "tls";
 
 export class Out {
+    OUT = "OUT";
+    DOUBLEPLAY = "DOUBLE PLAY";
     execute = (
         state: OutArgs,
         { outs = 1, rbi = false }: BatterActionConfig
@@ -28,6 +30,7 @@ export class Out {
             outs: newOuts,
             activeTeam,
             currentInning,
+            lastResult: outs === 2 ? this.DOUBLEPLAY : this.OUT,
         };
     };
 

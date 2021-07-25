@@ -10,7 +10,7 @@ export type HitArgs = Pick<
     GameState,
     "score" | "bases" | "currentInning" | "activeTeam"
 >;
-export type HitResult = Pick<GameState, "score" | "bases">;
+export type HitResult = Pick<GameState, "score" | "bases" | "lastResult">;
 
 export type OutArgs = Pick<
     GameState,
@@ -18,5 +18,28 @@ export type OutArgs = Pick<
 >;
 export type OutResult = Pick<
     GameState,
-    "score" | "bases" | "currentInning" | "activeTeam" | "outs"
+    "score" | "bases" | "currentInning" | "activeTeam" | "outs" | "lastResult"
+>;
+
+export type PitchArgs = Pick<
+    GameState,
+    | "score"
+    | "bases"
+    | "currentInning"
+    | "activeTeam"
+    | "outs"
+    | "lastResult"
+    | "strikes"
+    | "balls"
+>;
+export type PitchResult = Pick<
+    GameState,
+    | "score"
+    | "bases"
+    | "currentInning"
+    | "activeTeam"
+    | "outs"
+    | "lastResult"
+    | "strikes"
+    | "balls"
 >;
