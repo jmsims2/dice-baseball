@@ -1,7 +1,8 @@
 import { rollDice, matchDice } from "./dice";
+import { BatterDice } from "../state/reducer";
 
 const matchDiceTests: {
-    input: [[number, number], [number, number]];
+    input: [BatterDice, BatterDice];
     output: boolean;
 }[] = [
     {

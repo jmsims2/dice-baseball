@@ -66,6 +66,8 @@ export type PitchArgs = Pick<
     | "strikes"
     | "balls"
     | "currentTurn"
+    | "hits"
+    | "errors"
 >;
 export type PitchResult = Pick<
     GameState,
