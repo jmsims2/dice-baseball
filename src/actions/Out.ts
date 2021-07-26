@@ -1,6 +1,5 @@
 import { BatterActionConfig, OutArgs, OutResult } from "./types";
 import { Score, Bases, Outs } from "../state/createGame";
-import { createSecureContext } from "tls";
 
 export class Out {
     OUT = "OUT";

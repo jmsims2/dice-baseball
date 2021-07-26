@@ -1,10 +1,8 @@
 import React from "react";
-import logo from "./logo.svg";
 import "./App.css";
 import { gameStateReducer, PitchDice, BatterDice } from "./state/reducer";
 import { createGameState } from "./state/createGame";
 import { rollDice } from "./game/dice";
-import { BoxScore, StatsHeader } from "./components/stats";
 import { GameManager } from "./components/GameManager";
 
 function App() {
