@@ -15,6 +15,9 @@ export type Outs = 0 | 1 | 2;
 export type Balls = 0 | 1 | 2 | 3;
 export type Strikes = 0 | 1 | 2;
 
+export type Hits = [number, number];
+export type Errors = [number, number];
+
 export interface GameState {
     homeTeam: Team;
     awayTeam: Team;
@@ -27,6 +30,8 @@ export interface GameState {
     strikes: Strikes;
     lastResult: string | null;
     currentTurn: "pitcher" | "batter";
+    hits: Hits;
+    errors: Errors;
 }
 
 export const createGameState = ({
@@ -43,7 +48,9 @@ export const createGameState = ({
     balls = 0,
     strikes = 0,
     lastResult = null,
-    currentTurn = "batter",
+    currentTurn = "pitcher",
+    hits = [0, 0],
+    errors = [0, 0],
 }: Partial<GameState> = {}): GameState => {
     return {
         homeTeam,
@@ -57,5 +64,7 @@ export const createGameState = ({
         strikes,
         lastResult,
         currentTurn,
+        hits,
+        errors,
     };
 };

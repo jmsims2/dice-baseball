@@ -1,5 +1,5 @@
 import { BatterActionConfig, HitArgs, HitResult } from "./types";
-import { Score, Bases } from "../state/createGame";
+import { Score, Bases, Hits } from "../state/createGame";
 
 export class Double {
     DOUBLE = "DOUBLE";
@@ -9,6 +9,7 @@ export class Double {
     ): HitResult => {
         const score = this.setScore(state, basesToAdvance);
         const bases: Bases = this.setBases(state, basesToAdvance);
+        const hits = this.setHits(state);
         return {
             ...state,
             score,
@@ -17,7 +18,14 @@ export class Double {
             strikes: 0,
             balls: 0,
             currentTurn: "pitcher",
+            hits,
         };
+    };
+
+    setHits = (state: HitArgs): Hits => {
+        let hits = [...state.hits];
+        hits[state.activeTeam] = hits[state.activeTeam] + 1;
+        return hits as Hits;
     };
 
     setScore = (state: HitArgs, basesToAdvance: number): Score => {

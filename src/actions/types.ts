@@ -15,6 +15,8 @@ export type HitArgs = Pick<
     | "balls"
     | "strikes"
     | "currentTurn"
+    | "hits"
+    | "errors"
 >;
 export type HitResult = Pick<
     GameState,
@@ -25,6 +27,8 @@ export type HitResult = Pick<
     | "strikes"
     | "currentInning"
     | "currentTurn"
+    | "hits"
+    | "errors"
 >;
 
 export type OutArgs = Pick<

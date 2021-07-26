@@ -1,28 +1,33 @@
 import React from "react";
 import logo from "./logo.svg";
 import "./App.css";
+import { gameStateReducer, PitchDice, BatterDice } from "./state/reducer";
+import { createGameState } from "./state/createGame";
+import { rollDice } from "./game/dice";
+import { BoxScore, StatsHeader } from "./components/stats";
+import { GameManager } from "./components/GameManager";
 
 function App() {
-    // state reducer
-    // button to throw pitch
-    // button to bat if strike
+    const [state, dispatch] = React.useReducer(
+        gameStateReducer,
+        createGameState()
+    );
+
+    function handlePress() {
+        const dice =
+            state.currentTurn === "pitcher"
+                ? rollDice()
+                : [rollDice(), rollDice()];
+        if (Array.isArray(dice)) {
+            dispatch({ type: dice as BatterDice });
+        } else {
+            dispatch({ type: dice as PitchDice });
+        }
+    }
 
     return (
         <div className="App">
-            <header className="App-header">
-                <img src={logo} className="App-logo" alt="logo" />
-                <p>
-                    Edit <code>src/App.tsx</code> and save to reload.
-                </p>
-                <a
-                    className="App-link"
-                    href="https://reactjs.org"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    Learn React
-                </a>
-            </header>
+            <GameManager handlePress={handlePress} state={state} />
         </div>
     );
 }

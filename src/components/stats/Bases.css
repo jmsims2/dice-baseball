@@ -1,0 +1,23 @@
+#bases div {
+    position: absolute;
+    width: 7px;
+    height: 7px;
+    border: 1px solid white;
+}
+
+.on-base {
+    background-color: white;
+}
+
+.top {
+    top: 0;
+}
+.right {
+    right: 0;
+}
+.bottom {
+    bottom: 0;
+}
+.left {
+    left: 0;
+}
