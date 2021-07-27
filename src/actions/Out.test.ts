@@ -80,7 +80,7 @@ const testCases = [
     },
 ];
 
-describe("Single Tests", () => {
+describe("Out Tests", () => {
     testCases.forEach(({ testName, args, input, output }) => {
         test(`${testName}`, () => {
             const out = new Out();

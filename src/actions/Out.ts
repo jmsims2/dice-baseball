@@ -11,16 +11,36 @@ export class Out {
         const newOuts: Outs = this.setOuts(state, outs);
         const score = this.setScore(state, rbi);
         const bases: Bases = this.setBases(state, newOuts < state.outs, rbi);
-        const activeTeam = this.setActiveTeam(state, newOuts < state.outs);
-        const currentInning =
-            state.activeTeam === activeTeam
-                ? state.currentInning
-                : activeTeam === 0
-                ? state.currentInning + 1
-                : state.currentInning;
-        if (currentInning + 1 > score[0].length) {
-            score[0].push(0);
-            score[1].push(0);
+        let gameOver = false;
+        let lastResult = this.OUT;
+        let activeTeam = state.activeTeam;
+        let currentInning = state.currentInning;
+        if (
+            currentInning >= 8 &&
+            newOuts === 0 &&
+            activeTeam === 1 &&
+            !this.isTied(state)
+        ) {
+            console.log("game over", currentInning);
+            gameOver = true;
+            const home = state.score[1].reduce((sum, runs) => sum + runs, 0);
+            const away = state.score[0].reduce((sum, runs) => sum + runs, 0);
+            lastResult = `GAME OVER: ${
+                home > away ? "Home Team Wins" : "Away Team Wins"
+            } ${home > away ? `${home} - ${away}` : `${away} - ${home}`}`;
+        }
+        if (!gameOver) {
+            activeTeam = this.setActiveTeam(state, newOuts < state.outs);
+            currentInning =
+                state.activeTeam === activeTeam
+                    ? state.currentInning
+                    : activeTeam === 0
+                    ? state.currentInning + 1
+                    : state.currentInning;
+            if (currentInning + 1 > score[0].length) {
+                score[0].push(0);
+                score[1].push(0);
+            }
         }
         return {
             ...state,
@@ -29,11 +49,19 @@ export class Out {
             outs: newOuts,
             activeTeam,
             currentInning,
-            lastResult: outs === 2 ? this.DOUBLEPLAY : this.OUT,
+            lastResult,
             strikes: 0,
             balls: 0,
             currentTurn: "pitcher",
+            gameOver,
         };
+    };
+
+    isTied = (state: GameState): boolean => {
+        return (
+            state.score[0].reduce((sum, runs) => sum + runs, 0) ===
+            state.score[1].reduce((sum, runs) => sum + runs, 0)
+        );
     };
 
     setBases = (state: GameState, newInning: boolean, rbi: boolean): Bases => {

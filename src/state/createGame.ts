@@ -32,6 +32,7 @@ export interface GameState {
     currentTurn: "pitcher" | "batter";
     hits: Hits;
     errors: Errors;
+    gameOver: boolean;
 }
 
 export const createGameState = ({
@@ -51,6 +52,7 @@ export const createGameState = ({
     currentTurn = "pitcher",
     hits = [0, 0],
     errors = [0, 0],
+    gameOver = false,
 }: Partial<GameState> = {}): GameState => {
     return {
         homeTeam,
@@ -66,5 +68,6 @@ export const createGameState = ({
         currentTurn,
         hits,
         errors,
+        gameOver,
     };
 };
