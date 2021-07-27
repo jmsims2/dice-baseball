@@ -1,4 +1,4 @@
-import { GameState } from "./createGame";
+import { GameState, createGameState } from "./createGame";
 import {
     Single,
     Double,
@@ -17,7 +17,7 @@ export type PitchDice = DiceRoll;
 export type BatterDice = [DiceRoll, DiceRoll];
 
 export type GameAction = {
-    type: PitchDice | BatterDice;
+    type: PitchDice | BatterDice | "reset";
 };
 
 const single = new Single();
@@ -32,6 +32,8 @@ const walk = new Walk();
 
 export const gameStateReducer = (state: GameState, action: GameAction) => {
     switch (true) {
+        case action.type === "reset":
+            return createGameState();
         case action.type === 1:
         case action.type === 3:
         case action.type === 5:

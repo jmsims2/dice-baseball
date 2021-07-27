@@ -12,6 +12,10 @@ function App() {
     );
 
     function handlePress() {
+        if (state.gameOver) {
+            dispatch({ type: "reset" });
+            return;
+        }
         const dice =
             state.currentTurn === "pitcher"
                 ? rollDice()

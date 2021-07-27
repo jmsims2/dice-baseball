@@ -78,7 +78,9 @@ export function GameManager({ handlePress, state }: GameManagerProps) {
                         width: 150,
                     }}
                 >
-                    {state.currentTurn === "pitcher"
+                    {state.gameOver
+                        ? "Start Over"
+                        : state.currentTurn === "pitcher"
                         ? "Throw Pitch"
                         : "Take Swing"}
                 </button>
