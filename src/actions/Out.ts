@@ -1,13 +1,13 @@
-import { BatterActionConfig, OutArgs, OutResult } from "./types";
-import { Score, Bases, Outs } from "../state/createGame";
+import { BatterActionConfig } from "./types";
+import { Score, Bases, Outs, GameState } from "../state/createGame";
 
 export class Out {
     OUT = "OUT";
     DOUBLEPLAY = "DOUBLE PLAY";
     execute = (
-        state: OutArgs,
+        state: GameState,
         { outs = 1, rbi = false }: BatterActionConfig
-    ): OutResult => {
+    ): GameState => {
         const newOuts: Outs = this.setOuts(state, outs);
         const score = this.setScore(state, rbi);
         const bases: Bases = this.setBases(state, newOuts < state.outs, rbi);
@@ -36,20 +36,20 @@ export class Out {
         };
     };
 
-    setBases = (state: OutArgs, newInning: boolean, rbi: boolean): Bases => {
+    setBases = (state: GameState, newInning: boolean, rbi: boolean): Bases => {
         if (newInning) return [false, false, false];
         return rbi ? [state.bases[0], state.bases[1], false] : state.bases;
     };
 
-    setActiveTeam = (state: OutArgs, newInning: boolean) => {
+    setActiveTeam = (state: GameState, newInning: boolean) => {
         return newInning ? (state.activeTeam ? 0 : 1) : state.activeTeam;
     };
 
-    setOuts = (state: OutArgs, outs = 1): Outs => {
+    setOuts = (state: GameState, outs = 1): Outs => {
         return (state.outs + outs > 2 ? 0 : state.outs + outs) as Outs;
     };
 
-    setScore = (state: OutArgs, rbi: boolean): Score => {
+    setScore = (state: GameState, rbi: boolean): Score => {
         let score = [...state.score];
         let runs = rbi && state.bases[2] ? 1 : 0;
         score[state.activeTeam][state.currentInning] += runs;

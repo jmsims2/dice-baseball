@@ -1,9 +1,8 @@
-import { HitArgs, HitResult } from "./types";
-import { Score, Bases, Hits } from "../state/createGame";
+import { Score, Bases, Hits, GameState } from "../state/createGame";
 
 export class Triple {
     TRIPLE = "TRIPLE";
-    execute = (state: HitArgs): HitResult => {
+    execute = (state: GameState): GameState => {
         const score = this.setScore(state);
         const bases: Bases = this.setBases(state);
         const hits = this.setHits(state);
@@ -19,20 +18,20 @@ export class Triple {
         };
     };
 
-    setHits = (state: HitArgs): Hits => {
+    setHits = (state: GameState): Hits => {
         let hits = [...state.hits];
         hits[state.activeTeam] = hits[state.activeTeam] + 1;
         return hits as Hits;
     };
 
-    setScore = (state: HitArgs): Score => {
+    setScore = (state: GameState): Score => {
         let score = [...state.score];
         let runs = state.bases.filter(Boolean).length;
         score[state.activeTeam][state.currentInning] += runs;
         return score;
     };
 
-    setBases = (state: HitArgs): Bases => {
+    setBases = (state: GameState): Bases => {
         return [false, false, true];
     };
 }

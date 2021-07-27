@@ -1,9 +1,8 @@
-import { HitArgs, HitResult } from "./types";
-import { Score, Bases } from "../state/createGame";
+import { Score, Bases, GameState } from "../state/createGame";
 
 export class Walk {
     WALK = "WALK";
-    execute = (state: HitArgs): HitResult => {
+    execute = (state: GameState): GameState => {
         const score = this.setScore(state);
         const bases: Bases = this.setBases(state);
         return {
@@ -17,14 +16,14 @@ export class Walk {
         };
     };
 
-    setScore = (state: HitArgs): Score => {
+    setScore = (state: GameState): Score => {
         let score = [...state.score];
         const runs = state.bases[2] ? 1 : 0;
         score[state.activeTeam][state.currentInning] += runs;
         return score;
     };
 
-    setBases = (state: HitArgs): Bases => {
+    setBases = (state: GameState): Bases => {
         let bases = [...state.bases];
         return [true, bases[0], bases[1]];
     };

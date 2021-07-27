@@ -1,12 +1,11 @@
-import { PitchArgs, PitchResult, HitResult } from "./types";
 import { Walk } from "./Walk";
-import { Balls } from "../state/createGame";
+import { Balls, GameState } from "../state/createGame";
 
 const walk = new Walk();
 
 export class Ball {
     BALL = "BALL";
-    execute = (state: PitchArgs): PitchResult | HitResult => {
+    execute = (state: GameState): GameState => {
         return state.balls < 3
             ? {
                   ...state,

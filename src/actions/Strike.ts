@@ -1,12 +1,11 @@
-import { PitchArgs, PitchResult, HitResult } from "./types";
 import { Out } from "./Out";
-import { Strikes } from "../state/createGame";
+import { Strikes, GameState } from "../state/createGame";
 
 const out = new Out();
 
 export class Strike {
     STRIKE = "STRIKE";
-    execute = (state: PitchArgs): PitchResult | HitResult => {
+    execute = (state: GameState): GameState => {
         return state.strikes < 2
             ? {
                   ...state,

@@ -1,9 +1,8 @@
-import { HitArgs, HitResult } from "./types";
-import { Score, Bases, Errors } from "../state/createGame";
+import { Score, Bases, Errors, GameState } from "../state/createGame";
 
 export class FieldingError {
     ERROR = "ERROR";
-    execute = (state: HitArgs): HitResult => {
+    execute = (state: GameState): GameState => {
         const score = this.setScore(state);
         const bases: Bases = this.setBases(state);
         const errors = this.setErrors(state);
@@ -19,20 +18,20 @@ export class FieldingError {
         };
     };
 
-    setErrors = (state: HitArgs): Errors => {
+    setErrors = (state: GameState): Errors => {
         let errors = { ...state.errors };
         errors[state.activeTeam] = errors[state.activeTeam] + 1;
         return errors as Errors;
     };
 
-    setScore = (state: HitArgs): Score => {
+    setScore = (state: GameState): Score => {
         let score = [...state.score];
         let runs = state.bases[2] ? 1 : 0;
         score[state.activeTeam][state.currentInning] += runs;
         return score;
     };
 
-    setBases = (state: HitArgs): Bases => {
+    setBases = (state: GameState): Bases => {
         return [false, state.bases[0], state.bases[1]];
     };
 }

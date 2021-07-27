@@ -16,6 +16,7 @@ function App() {
             state.currentTurn === "pitcher"
                 ? rollDice()
                 : [rollDice(), rollDice()];
+        console.log({ dice });
         if (Array.isArray(dice)) {
             dispatch({ type: dice as BatterDice });
         } else {
